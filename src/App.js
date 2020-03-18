@@ -10,13 +10,22 @@ function App() {
       name: 'Jenn',
       email: 'me@me.com',
       role: 'Lead Dev',
+      id: 1
     }
   ])
+
+  const addTeamHandler = newTeamMember => {
+    console.log("adding note", newTeamMember);
+    setTeamList([...teamList, newTeamMember]);
+    //Update the state.
+  };
+
+
   return (
     <div className="App">
       <h2>Team List</h2>
       <TeamList teamlist = {teamList} />
-      <Form />
+      <Form addTeamMember={addTeamHandler} />
     </div>
   );
 }

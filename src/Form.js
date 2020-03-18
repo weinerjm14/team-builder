@@ -1,18 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 
-function Form() {
+function Form(props) {
+    const [formState, setFormState] = useState({
+        name: "",
+        email: "",
+        role: ""
+      });
+
+      const formSubmitHandler = event => {
+        event.preventDefault();
+    
+        props.addTeamMember({
+          ...formState,
+          id: Date.now()
+        });
+    }
+
+        const changeHandler = event => {
+            setFormState({
+              ...formState,
+              [event.target.name]: event.target.value
+            });
+          };
+
+
+
+
     return(
         <div id="newMemberForm">
         <h3>Add New Member</h3>
-        <form >
+        <form onSubmit = {formSubmitHandler}>
         <label htmlFor="name">Name:   </label>
-        <input type="text" name="name" id="name" placeholder="Enter Name" ></input>
+        <input type="text" name="name" id="name" placeholder="Enter Name" onChange={changeHandler} ></input>
         <br />
         <label htmlFor="email">Email:   </label>
-        <input type="email" name="email" id="email" placeholder="Enter email." ></input> <br />
+        <input type="email" name="email" id="email" placeholder="Enter email." onChange={changeHandler} ></input> <br />
         <label htmlFor="role">Team Role:   </label>
-        <select id="role" name="role" >
+        <select id="role" name="role" onChange={changeHandler}>
                 <option></option>
                 <option>React Dev</option>
                 <option>Front End Dev</option>
